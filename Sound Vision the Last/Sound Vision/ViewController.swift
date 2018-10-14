@@ -352,18 +352,22 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
     }    */
         @objc func swipeAction(swipe:UISwipeGestureRecognizer)
     {
-        for letter in morseText.text!{
+        for alphaNumToMorse in morseText.text!{
             
-            if letter == "."{
+            if alphaNumToMorse == "."{
                 AudioServicesPlaySystemSound(1520); // Weak
+                usleep(200000)
+
             }
             
-           else  if letter == "-"{
+           else  if alphaNumToMorse == "-"{
                 AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+                usleep(200000)
+
             }
         
         
-            else if letter == "|"{
+            else if alphaNumToMorse == "|"{
                 usleep(500000)
 
             
