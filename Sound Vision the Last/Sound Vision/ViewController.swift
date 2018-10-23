@@ -18,8 +18,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var detectedText: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var morseText: UILabel!
-    @IBOutlet weak var vibratedText: UILabel!
     
+    let vibration = [
+        ".": AudioServicesPlaySystemSound(1520), // Weak
+        "-": AudioServicesPlayAlertSound(kSystemSoundID_Vibrate),]
+
+
     let alphaNumToMorse = [
         "A": ".-",
         "B": "-...",
@@ -349,26 +353,29 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
      usleep(500000)
             }
         
-    }    */
+    } */
+    var vibeText = ""
         @objc func swipeAction(swipe:UISwipeGestureRecognizer)
     {
-        for alphaNumToMorse in morseText.text!{
+        vibeText = morseText.text!
+        for symbol in vibeText {
             
-            if alphaNumToMorse == "."{
+            if  symbol == "."{
                 AudioServicesPlaySystemSound(1520); // Weak
-                usleep(200000)
+                sleep(1)
 
             }
             
-           else  if alphaNumToMorse == "-"{
-                AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
-                usleep(200000)
+           else  if symbol == "-"{
+              AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+
+                sleep(1)
 
             }
         
         
-            else if alphaNumToMorse == "|"{
-                usleep(500000)
+            else if symbol == "|"{
+                sleep(2)
 
             
         }
@@ -378,6 +385,18 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
 
 
 }
+    /*
+    var vibeText = ""
+    @objc func swipeAction(swipe:UISwipeGestureRecognizer)
+    {
+        vibeText = morseText.text!
+        for symbol in vibeText {
+            if vibration.keys.contains("\(symbol)") {
+                // something to write to vibrate
+            }
+        }
+    }
+*/
 }
 
 
